@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import TodoList from "./components/TodoList";
 
 function TodoFeature(props) {
