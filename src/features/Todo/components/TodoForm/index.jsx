@@ -25,7 +25,11 @@ function TodoForm(props) {
     resolver: yupResolver(schema),
   });
   const handleSubmit = (values) => {
-    console.log("Form submit: ", values);
+    const { onsubmit } = props;
+    if (onsubmit) {
+      onsubmit(values);
+    }
+    form.reset();
   };
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>

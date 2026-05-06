@@ -72,21 +72,27 @@ function ListPage(props) {
     }, [todoList, filterStatus]);
 
     const handeTodoFormSubmit = (values) => {
-        console.log("Form submit: ", values);
-    }
+      const newTodo = {
+        id: todoList.length + 1,
+        title: values.title,
+        status: "new",
+      };
+      const newTodoList = [...todoList, newTodo];
+      settodoList(newTodoList);
+    };
     return (
-        <div>
-            <h3>what to do</h3>
-            <TodoForm onsubmit={handeTodoFormSubmit} />
+      <div>
+        <h3>what to do</h3>
+        <TodoForm onsubmit={handeTodoFormSubmit} />
 
-            <h3>Todo Feature</h3>
-            <TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick} />
-            <div>
-                <button onClick={handleShowAllClick}>Show All</button>
-                <button onClick={handleShowCompletedClick}>Show Completed</button>
-                <button onClick={handleShowNewClick}>Show New</button>
-            </div>
+        <h3>Todo Feature</h3>
+        <TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick} />
+        <div>
+          <button onClick={handleShowAllClick}>Show All</button>
+          <button onClick={handleShowCompletedClick}>Show Completed</button>
+          <button onClick={handleShowNewClick}>Show New</button>
         </div>
+      </div>
     );
 }
 
