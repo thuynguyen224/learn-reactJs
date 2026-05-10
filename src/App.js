@@ -6,6 +6,8 @@ import DetailPage from "./features/Todo/pages/DetailPage";
 import NotFound from "./components/NotFound";
 import categoryApi from "./api/categoryApi";
 import CounterFeature from "./features/Counter";
+import './App.css';
+
 function App() {
   useEffect(() => {
     // Call API to get data
@@ -24,11 +26,8 @@ function App() {
     fetchData();
   }, []);
 
-  const color = 'goldenrod';
-  const backgroundImg = 'https://images.pexels.com/photos/246230/pexels-photo-246230.png';
-
   return (
-    <div className="App" style={{color, backgroundImage: `url("${backgroundImg}")`}}>
+    <div className="app">
       Header
       <p>
         <NavLink to="/todos" activeClassName="active-menu">
