@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import InputField from "components/form-control/InputField";
 import LockOutlined from "@mui/icons-material/LockOutlined";
 import { makeStyles } from "@mui/styles";
@@ -24,6 +26,32 @@ RegisterForm.propTypes = {
 
 function RegisterForm(props) {
   const classes = useStyles();
+  const schema = yup
+    .object({
+      fullName: yup
+        .string()
+        .required("Please enter full name")
+        .test(
+          "should has at least two words",
+          "Please enter at least two words",
+          (value) => {
+            return value.split(" ").length >= 2;
+          },
+        ),
+      email: yup
+        .string()
+        .required("Please enter email")
+        .email("Please enter a valid email"),
+      password: yup
+        .string()
+        .required("Please enter password")
+        .min(6, "Please enter at lease 6 character"),
+      retypePassword: yup
+        .string()
+        .required("Please enter retype password")
+        .oneOf([yup.ref("password")], "Password does not match"),
+    })
+    .required();
   const form = useForm({
     defaultValues: {
       fullName: "",
@@ -31,6 +59,7 @@ function RegisterForm(props) {
       password: "",
       retypePassword: "",
     },
+    resolver: yupResolver(schema),
   });
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
