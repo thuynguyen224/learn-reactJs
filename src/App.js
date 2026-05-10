@@ -23,8 +23,12 @@ function App() {
 
     fetchData();
   }, []);
+
+  const color = 'goldenrod';
+  const backgroundImg = 'https://images.pexels.com/photos/246230/pexels-photo-246230.png';
+
   return (
-    <div className="App">
+    <div className="App" style={{color, backgroundImage: `url("${backgroundImg}")`}}>
       Header
       <p>
         <NavLink to="/todos" activeClassName="active-menu">
