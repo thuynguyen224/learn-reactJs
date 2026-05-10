@@ -6,16 +6,30 @@ import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
 import CodeIcon from "@mui/icons-material/Code";
 import { Link, NavLink } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import { useState } from "react";
+import Register from "features/Auth/components/Register";
 
 const useStyles = makeStyles({
-    link: {
-        color: "white",
-        textDecoration: "none"
-    }
+  link: {
+    color: "white",
+    textDecoration: "none",
+  },
 });
 
 export default function Header() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,7 +43,9 @@ export default function Header() {
             sx={{ mr: 2 }}
           />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link className={classes.link} to="/">EZ SHOP</Link>
+            <Link className={classes.link} to="/">
+              EZ SHOP
+            </Link>
           </Typography>
           <NavLink className={classes.link} to="/todos">
             <Button color="inherit">Todos</Button>
@@ -38,9 +54,25 @@ export default function Header() {
             <Button color="inherit">Albums</Button>
           </NavLink>
 
-          <Button color="inherit">Register</Button>
+          <Button color="inherit" onClick={handleClickOpen}>
+            Register
+          </Button>
         </Toolbar>
       </AppBar>
+      <Dialog
+        open={open}
+        onClose={(event, reason) => {
+          if (reason === "backdropClick" || "escapeKeyDown") return;
+          handleClose();
+        }}
+      >
+        <DialogContent>
+          <Register />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
