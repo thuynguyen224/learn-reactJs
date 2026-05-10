@@ -5,6 +5,7 @@ import ListPage from "./features/Todo/pages/ListPage";
 import DetailPage from "./features/Todo/pages/DetailPage";
 import NotFound from "./components/NotFound";
 import categoryApi from "./api/categoryApi";
+import CounterFeature from "./features/Counter";
 function App() {
   useEffect(() => {
     // Call API to get data
@@ -40,6 +41,7 @@ function App() {
           <Route index element={<ListPage />} />
           <Route path=":todoId" element={<DetailPage />} />
         </Route>
+        <Route path="/" element={<CounterFeature />} />
         <Route path="/albums" element={<AlbumFeature />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
