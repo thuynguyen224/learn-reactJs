@@ -7,6 +7,14 @@ import NotFound from "./components/NotFound";
 import categoryApi from "./api/categoryApi";
 import CounterFeature from "./features/Counter";
 import './App.css';
+import styled from "styled-components";
+
+const Title = styled.h1`
+  text-align: center;
+  font-weight: bold;
+
+  color: ${(props) => props.color || 'green'};
+`;
 
 function App() {
   useEffect(() => {
@@ -28,7 +36,7 @@ function App() {
 
   return (
     <div className="app">
-      Header
+      <Title color='goldenrod'>HEADING</Title>
       <p>
         <NavLink to="/todos" activeClassName="active-menu">
           Todo
