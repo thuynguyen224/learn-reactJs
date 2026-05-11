@@ -6,6 +6,12 @@ export const register = createAsyncThunk("user/register", async (payload) => {
   return data;
 });
 
+export const login = createAsyncThunk("user/login", async (payload) => {
+  const data = await userApi.login(payload);
+  localStorage.setItem("token", data.token);
+  return data.token;
+});
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -23,6 +29,16 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(register.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state) => {
         state.loading = false;
       });
   },

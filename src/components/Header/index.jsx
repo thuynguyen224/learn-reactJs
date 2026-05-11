@@ -10,6 +10,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import Register from "features/Auth/components/Register";
+import Login from "features/Auth/components/Login";
 import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
@@ -28,9 +29,14 @@ const useStyles = makeStyles({
   },
 });
 
+const MODE = {
+  LOGIN: "login",
+  REGISTER: "register",
+};
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState(MODE.LOGIN);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,7 +70,7 @@ export default function Header() {
           </NavLink>
 
           <Button color="inherit" onClick={handleClickOpen}>
-            Register
+            Login
           </Button>
         </Toolbar>
       </AppBar>
@@ -79,7 +85,26 @@ export default function Header() {
           <Close />
         </IconButton>
         <DialogContent>
-          <Register closeDialog={handleClose} />
+          {mode === MODE.REGISTER && (
+            <>
+              <Register closeDialog={handleClose} />
+              <Box style={{ textAlign: "center" }}>
+                <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
+                  Already have an accout. Login here
+                </Button>
+              </Box>
+            </>
+          )}
+          {mode === MODE.LOGIN && (
+            <>
+              <Login closeDialog={handleClose} />
+              <Box style={{ textAlign: "center" }}>
+                <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
+                  Dont have an accout. Register here
+                </Button>
+              </Box>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </Box>

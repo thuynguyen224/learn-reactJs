@@ -5,7 +5,7 @@ import ListPage from "./features/Todo/pages/ListPage";
 import DetailPage from "./features/Todo/pages/DetailPage";
 import NotFound from "./components/NotFound";
 import CounterFeature from "./features/Counter";
-import './App.css';
+import "./App.css";
 import Header from "components/Header";
 import userApi from "api/userApi";
 
@@ -17,7 +17,11 @@ function App() {
         limit: 5,
       };
       try {
-        const response = await userApi.getAll(params);
+        const userList = await userApi.getAll(params);
+        console.log(userList);
+
+        const credentials = { username: "johnd", password: "m38rmF$" };
+        const response = await userApi.login(JSON.stringify(credentials));
         console.log(response);
       } catch (error) {
         console.log("Failed to fetch category list: ", error);
@@ -29,7 +33,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header/>
+      <Header />
       <p>
         <NavLink to="/todos" activeClassName="active-menu">
           Todo
