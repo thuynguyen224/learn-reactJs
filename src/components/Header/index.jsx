@@ -11,9 +11,11 @@ import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import Register from "features/Auth/components/Register";
 import Login from "features/Auth/components/Login";
-import { IconButton } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { AccountCircle, Close } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "features/Auth/userSlice";
 
 const useStyles = makeStyles({
   link: {
@@ -34,16 +36,30 @@ const MODE = {
   REGISTER: "register",
 };
 export default function Header() {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const loggedInUser = useSelector((state) => state.user.current);
+  const isLoggedIn = !!loggedInUser.username;
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
-
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleUserClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleLogoutClick = (e) => {
+    const action = logout();
+    dispatch(action);
+    setAnchorEl(null);
   };
 
   return (
@@ -68,12 +84,29 @@ export default function Header() {
           <NavLink className={classes.link} to="/albums">
             <Button color="inherit">Albums</Button>
           </NavLink>
-
-          <Button color="inherit" onClick={handleClickOpen}>
-            Login
-          </Button>
+          {!isLoggedIn && (
+            <Button color="inherit" onClick={handleClickOpen}>
+              Login
+            </Button>
+          )}
+          {isLoggedIn && (
+            <IconButton color="inherit" onClick={handleUserClick}>
+              <AccountCircle />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
+        getContentAnchorEl={null}
+      >
+        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+      </Menu>
+
       <Dialog
         open={open}
         onClose={(event, reason) => {
