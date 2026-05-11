@@ -2,10 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userApi from "api/userApi";
 
 export const register = createAsyncThunk("user/register", async (payload) => {
-  const userId = await userApi.add(payload);
-  const data = await userApi.get(userId.id);
-  localStorage.setItem("user", JSON.stringify(data.user));
-  return data.user;
+  const data = await userApi.add(payload);
+  return data;
 });
 
 const userSlice = createSlice({
