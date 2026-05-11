@@ -4,10 +4,10 @@ import AlbumFeature from "./features/Album";
 import ListPage from "./features/Todo/pages/ListPage";
 import DetailPage from "./features/Todo/pages/DetailPage";
 import NotFound from "./components/NotFound";
-import categoryApi from "./api/categoryApi";
 import CounterFeature from "./features/Counter";
 import './App.css';
 import Header from "components/Header";
+import userApi from "api/userApi";
 
 function App() {
   useEffect(() => {
@@ -17,7 +17,7 @@ function App() {
         limit: 5,
       };
       try {
-        const response = await categoryApi.getAll(params);
+        const response = await userApi.getAll(params);
         console.log(response);
       } catch (error) {
         console.log("Failed to fetch category list: ", error);

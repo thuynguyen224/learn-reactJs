@@ -6,11 +6,13 @@ import * as yup from "yup";
 import InputField from "components/form-control/InputField";
 import LockOutlined from "@mui/icons-material/LockOutlined";
 import { makeStyles } from "@mui/styles";
-import { Typography, Avatar, Button } from "@mui/material";
+import { Typography, Avatar, Button, LinearProgress } from "@mui/material";
 import PasswordField from "components/form-control/PasswordField";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    position: 'relative',
+  },
   avatar: {
     margin: "0 auto",
   },
@@ -18,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   submit: {},
+  progress: {
+    position: 'absolute',
+    paddingTop: 3,
+    marginBottom: 10
+  }
 }));
 
 RegisterForm.propTypes = {
@@ -68,8 +75,11 @@ function RegisterForm(props) {
     }
     form.reset();
   };
+
+  const {isSubmitting} = form.formState;
   return (
     <div className={classes.root} sx={{ paddingTop: 4 }}>
+      {isSubmitting && <LinearProgress className={classes.progress} />}
       <Avatar className={classes.avatar} sx={{ bgcolor: "secondary.main" }}>
         <LockOutlined></LockOutlined>
       </Avatar>
@@ -92,6 +102,7 @@ function RegisterForm(props) {
         />
         <Button
           type="submit"
+          disabled={isSubmitting}
           sx={{ mt: 3, mb: 2 }}
           variant="contained"
           color="primary"
