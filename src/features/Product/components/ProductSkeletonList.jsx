@@ -21,7 +21,7 @@ function ProductSkeletonList({ length = 6 }) {
           key={index}
         >
           <Box sx={{ padding: 1 }}>
-            <Skeleton variant="rectangular" width="100%" height={180} />
+            <Skeleton variant="rectangular" width="100%" height={200} />
             <Skeleton sx={{ mt: 1 }} width="80%" />
             <Skeleton width="60%" />
           </Box>

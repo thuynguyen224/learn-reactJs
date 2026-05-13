@@ -1,0 +1,1 @@
+export const THUMNAIL_URL = 'https://lh6.googleusercontent.com/proxy/04Kb8DpsHstYEG9vSGTu2B9YxnCQdBGL_zy-SdkZaC_Juqc_hQaG0Ty0JrFponcen_TGPwQU3M5xAb0iWaiBDDjN85u3ij1CUdA3Heqn-0SnPQ94b7U';
