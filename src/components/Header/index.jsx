@@ -1,13 +1,7 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import {Toolbar, Typography, Button ,Dialog, DialogContent, Box, AppBar} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CodeIcon from "@mui/icons-material/Code";
 import { Link, NavLink } from "react-router-dom";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import Register from "features/Auth/components/Register";
 import Login from "features/Auth/components/Login";
@@ -78,6 +72,9 @@ export default function Header() {
               EZ SHOP
             </Link>
           </Typography>
+          <NavLink className={classes.link} to="/products">
+            <Button color="inherit">Products</Button>
+          </NavLink>
           <NavLink className={classes.link} to="/todos">
             <Button color="inherit">Todos</Button>
           </NavLink>
