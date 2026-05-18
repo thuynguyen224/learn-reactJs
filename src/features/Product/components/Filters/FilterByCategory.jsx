@@ -1,7 +1,31 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
+import {makeStyles} from '@mui/styles';
 import categoryApi from "api/categoryApi";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: '20px',
+    
+  },
+  menu: {
+    padding: 0,
+    margin: 0, 
+    listStyleType: 'none',
+     
+    '& > li' : {
+      marginTop: '10px',
+      transition: 'all .25s',
+      '&:hover' : {
+        color: 'blue',
+        cursor: 'pointer',
+
+      }
+    }
+  }
+}))
+
 
 FilterByCategory.propTypes = {
   onChange: PropTypes.func,
@@ -9,7 +33,7 @@ FilterByCategory.propTypes = {
 
 function FilterByCategory({ onChange }) {
   const [categoryList, setCategoryList] = useState([]);
-
+  const classes = useStyles();
   useEffect(() => {
     (async () => {
       try {
@@ -27,9 +51,9 @@ function FilterByCategory({ onChange }) {
     }
   };
   return (
-    <Box>
+    <Box className={classes.root}>
       <Typography>DANH MỤC SẢN PHẨM</Typography>
-      <ul>
+      <ul className={classes.menu}>
         {categoryList.map((category) => (
           <li
             key={category}
@@ -37,7 +61,7 @@ function FilterByCategory({ onChange }) {
               handleCategoryClick(category);
             }}
           >
-            {category}
+            <Typography variant="body2" >{category}</Typography>
           </li>
         ))}
       </ul>
