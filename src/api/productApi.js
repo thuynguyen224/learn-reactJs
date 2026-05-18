@@ -9,6 +9,10 @@ const productApi = {
     const url = `/products/${id}`;
     return axiosClient.get(url);
   },
+  getByCategory(category, params){
+    const url = `/products/category/${category}`;
+    return axiosClient.get(url, { params });
+  },
   add(data) {
     const url = "/products";
     return axiosClient.post(url, data);

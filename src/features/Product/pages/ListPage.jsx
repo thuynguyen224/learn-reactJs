@@ -1,17 +1,11 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Select,
-  MenuItem,
-  Paper,
-} from "@mui/material";
+import { Box, Container, Grid, Select, MenuItem, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import productApi from "api/productApi";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductList from "../components/ProductList";
 import ProductSort from "../components/ProductSort";
+import ProductFilters from "../components/ProductFilters";
 ListPageProduct.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -42,11 +36,18 @@ function ListPageProduct(props) {
   useEffect(() => {
     (async () => {
       try {
-        const productListData = await productApi.getAll({
-          limit: filters.limit,
-          sort: filters.sort,
-        });
-        console.log(productListData);
+        let productListData = [];
+        if (filters.category) {
+          productListData = await productApi.getByCategory(filters.category, {
+            limit: filters.limit,
+            sort: filters.sort,
+          });
+        } else {
+          productListData = await productApi.getAll({
+            limit: filters.limit,
+            sort: filters.sort,
+          });
+        }
         setProductList(productListData);
       } catch (error) {
         console.log("fail to get list");
@@ -61,12 +62,24 @@ function ListPageProduct(props) {
       sort: newSortValue,
     }));
   };
+
+  const handleFiltersChange = (newFilters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+    }));
+  };
   return (
     <Box>
       <Container>
         <Grid container spacing={1}>
           <Grid item className={classes.left}>
-            <Paper elevation={0}>Left colum</Paper>
+            <Paper elevation={0}>
+              <ProductFilters
+                filters={filters}
+                onChange={handleFiltersChange}
+              />
+            </Paper>
           </Grid>
           <Grid item className={classes.right}>
             <Paper elevation={0}>
