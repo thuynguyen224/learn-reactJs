@@ -13,15 +13,15 @@ function Product({ product }) {
   return (
     <Box sx={{ padding: 1 }}>
       <Box sx={{ padding: 1 }}>
-        <img
-          src={thumnailUrl}
-          alt={product.name}
-          width='100%'
-          height={200}
-        />
+        <img src={thumnailUrl} alt={product.name} width="100%" height={200} />
       </Box>
       <Typography variant="body2">{product.title}</Typography>
-      <Typography variant="body2">{product.price}</Typography>
+
+      <Typography variant="body2">
+        <Box component='span' sx={{ fontSize: '16px', fontWeight : 'bold' }}>
+           {Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(product.price)}
+        </Box>
+      </Typography>
     </Box>
   );
 }
